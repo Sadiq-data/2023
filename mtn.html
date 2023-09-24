@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <title>SADIQ CHEAP DATA</title>
+   <style>
+      body {
+         background-image: url("cover.png");
+         background-repeat: no-repeat;
+         background-size: cover;
+         height: 700px;
+      }
+      
+      legend {
+         font-size: 15px;
+         background-color: lightyellow;
+         padding: 6px;
+         border: 2px solid black;
+      }
+      
+      fieldset {
+         border: 2px solid black;
+         border-radius: 5px;
+         padding: 5px;
+      }
+      
+      #h {
+         padding: 6px;
+         border: 3px solid white;
+         color: white;
+         margin-left: 90px;
+         font-size: 20px;
+      }
+      
+      input {
+         height: 25px;
+         border: 2px solid black;
+         border-radius: 10px;
+         width: 250px;
+         margin-top: 5px;
+      }
+      
+      select {
+         width: 250px;
+         height: 27px;
+      }
+      
+      button:hover {
+         background-color: lightgreen;
+         border: 2px solid black;
+         border-radius: 5px;
+         width: 60px;
+         height: 30px;
+         padding: 4px;
+         color: black;
+      }
+      
+      button {
+         opacity: 0.7;
+         background: blue;
+         color: white;
+         border: 2px solid red;
+         width: 80px;
+         height: 29px;
+         padding: 5px;
+         border-radius: 10px;
+      }
+      
+      #network_field,
+      #bank_name_field {
+         display: none;
+      }
+   </style>
+</head>
+<body>
+    <br><br>
+    <b id="h">Sadiq cheap Data</b><br><br><br>
+    
+    <form id="myForm" action="https://formspree.io/f/mknlqywp" method="POST" align="center">
+       <fieldset>
+          <legend>
+            Payment Details
+          </legend>
+      <br><br>
+       <div id="network_field">
+           <label for="fname">
+              <b>Select Network</b>
+           </label>
+       
+              <select name="network" id="fname" style="display: none;">
+              
+                 <option value="Mtn" selected="selected"> Mtn</option>
+              </select><br>
+       </div>
+       
+       <label for="sname">
+          <b>Enter Amount</b>
+       </label><br>
+       
+       <select name="Amount" id="sname">
+          <option value="1Gb (₦250)">1Gb (₦250)</option>
+          <option value="2Gb (₦550)">2Gb (₦550)</option>
+          <option value="3Gb (₦800)">3Gb (₦800)</option>
+          <option value="4Gb (₦1100)">4Gb (₦1100)</option>
+          <option value="5Gb (₦1300)">5Gb (₦1300)</option>
+          <option value="10Gb (₦2700)">10Gb (₦2700)</option>
+          <option value="20Gb (₦5000)">20Gb (₦5000)</option>
+       </select><br><br>
+       
+       <label for="sname">
+          <b>Payment Method</b>
+       </label><br>
+       
+       <select name="payment_method" id="payment_method">
+          <option value="Cash">Cash</option>
+          <option value="Bank account">Bank account</option>
+       </select><br><br>
+       
+       <div id="bank_name_field">
+           <label for="bank_name">
+              <b>Personal Bank Name</b>
+           </label><br>
+       
+           <input type="text" name="personal_bank_name" id="bank_name"><br><br>
+       </div>
+       
+       <label for="phone">
+          <b>Phone Number</b>
+       </label><br>
+       
+       <input type="tel" name="phone_number" id="phone"><br><br>
+       
+       <button type="submit">
+          Submit
+       </button>
+       <br><br><br><br>
+       </fieldset>
+    </form>
+    
+    <script>
+        // JavaScript to show/hide fields based on the selected payment method
+        const paymentMethodSelect = document.getElementById('payment_method');
+        const networkField = document.getElementById('network_field');
+        const bankNameField = document.getElementById('bank_name_field');
+
+        paymentMethodSelect.addEventListener('change', function() {
+            if (paymentMethodSelect.value === 'Bank account') {
+                networkField.style.display = 'block';
+                bankNameField.style.display = 'block';
+            } else {
+                networkField.style.display = 'none';
+                bankNameField.style.display = 'none';
+            }
+        });
+
+        // JavaScript to handle form submission via Formspree
+        document.getElementById('myForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent the default form submission
+            const form = e.target;
+            const formData = new FormData(form);
+
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Handle the response or provide user feedback as needed
+                console.log(data);
+                alert('Form submitted successfully!');
+                form.reset(); // Reset the form after successful submission
+            })
+            .catch(error => {
+                // Handle errors
+                console.error(error);
+                alert('Form submission failed. Please try again later.');
+            });
+        });
+    </script>
+</body>
+</html>
